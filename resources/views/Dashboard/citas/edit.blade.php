@@ -4,7 +4,7 @@
 
 @include('fragments.formstyles')
 
-<h1>Editar Productos</h1>
+<h1>Editar Citas</h1>
 
 @if($errors->any())
     @foreach ($errors->all() as $e)
@@ -14,10 +14,10 @@
     @endforeach
 @endif
 
-<form action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('citas.update', $citas->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <label for="">Nombre del Producto</label>
+    <label for="">Nombre de la cita</label>
     <input type="text" name="nameProduct" value="{{$product->nameProduct}}">
     <label for="">Marca</label>
     <select name= "brand_id">

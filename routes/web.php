@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CitaController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\TestController;
+use App\Models\Medico;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,19 +48,20 @@ Route::delete('/destroyProducts/{product}',[App\Http\Controllers\ProductControll
 ->name ('pdestroy');*/
 
 //Ruta Tipo Recursos para métodos REST, que permite crear las rutas para un CRUD de las 7 funciones de un controllercle
-Route::resource('/products',App\Http\Controllers\ProductController::class);
 
-Route::get('/products/{product}/delete',
-[App\Http\Controllers\ProductController::class, 'delete'])-> name('products.delete');
+Route::get('/citas/{citas}/delete',
+[App\Http\Controllers\ProductController::class, 'delete'])-> name('citas.delete');
 
-Route::resource('/brands',App\Http\Controllers\BrandController::class);
+Route::resource('medicos', App\Http\Controllers\MedicoController::class);
+Route::resource('pacientes', PacienteController::class);
+Route::resource('citas', CitaController::class);
+Route::resource('usuarios',  UsuarioController::class);
 
-Route::resource('/clients',App\Http\Controllers\ClientController::class);
-
-Route::resource('/sales',App\Http\Controllers\SaleController::class);
+// Registering routes in web.php
 
 
-/*
+
+/*                  
 Route::get('/clients', function () {
     return view('clients_index');
 }) -> name ("clients");

@@ -7,7 +7,7 @@
     <title>Laracrud</title>
 
 </head>
-<body style="background-color: rgb(225, 210, 180)">
+<body style="background-color: rgb(74, 98, 148)">
     
     @include('fragments/navbar')
 

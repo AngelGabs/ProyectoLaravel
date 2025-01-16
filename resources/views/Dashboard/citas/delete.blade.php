@@ -28,17 +28,17 @@
 <table>
     <thead>
         <h3>¿Estas seguro que quieres 
-        eliminar el producto {{$product->nameProduct}}?</h3>
+        eliminar la cita {{$cita->paciente_id}}?</h3>
     </thead>
     <tbody>
         <tr>
             <td>
-                <form action="{{route('products.index')}}">
+                <form action="{{route('citas.index')}}">
                     <button type="submit"> No </button>
                 </form>
             </td>
             <td>
-                <form action="{{route('products.destroy', $product->id)}}" method="POST">
+                <form action="{{route('citas.destroy', $citas->id)}}" method="POST">
                     @method("DELETE")
                     @csrf
                     <button type="submit"> Si </button>
