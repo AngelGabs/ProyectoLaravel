@@ -1,7 +1,7 @@
 @extends('layout.main_template')
 
 @section('content')
-    <h1>Crear Cita</h1>
+    <h1>Editar Médico</h1>
 
     @if ($errors->any())
         <div class="error-messages">
@@ -11,48 +11,29 @@
         </div>
     @endif
 
-    <form action="{{ route('citas.store') }}" method="POST">
+    <form action="{{ route('medicos.update', $medico->id) }}" method="POST">
         @csrf
+        @method('PUT')
 
-        <label for="paciente_id">Paciente:</label>
-        <select name="paciente_id" id="paciente_id" required>
-            <option value="">Seleccione un paciente</option>
-            @foreach ($pacientes as $paciente)
-                <option value="{{ $paciente->id }}">{{ $paciente->nombre }} {{ $paciente->apellido }}</option>
-            @endforeach
-        </select>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ $medico->nombre }}" required>
         <br>
 
-        <label for="medico_id">Médico:</label>
-        <select name="medico_id" id="medico_id" required>
-            <option value="">Seleccione un médico</option>
-            @foreach ($medicos as $medico)
-                <option value="{{ $medico->id }}">{{ $medico->nombre }} ({{ $medico->especialidad }})</option>
-            @endforeach
-        </select>
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" name="especialidad" value="{{ $medico->especialidad }}" required>
         <br>
 
-        <label for="fecha_cita">Fecha de la Cita (YYYY-MM-DD):</label>
-        <input type="date" id="fecha_cita" name="fecha_cita" placeholder="Ejemplo: 2025-01-16">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" value="{{ $medico->telefono }}">
         <br>
 
-        <label for="hora_cita">Hora de la Cita (HH:MM):</label>
-        <input type="text" id="hora_cita" name="hora_cita" placeholder="Ejemplo: 14:30">
+        <label for="horario_disponible">Horario Disponible:</label>
+        <input type="text" id="horario_disponible" name="horario_disponible" value="{{ $medico->horario_disponible }}">
         <br>
 
-        <label for="estado">Estado:</label>
-        <select name="estado" id="estado" required>
-            <option value="Pendiente" selected>Pendiente</option>
-            <option value="Completada">Completada</option>
-            <option value="Cancelada">Cancelada</option>
-        </select>
-        <br>
-
-        <button type="submit">Crear Cita</button>
-
-        <a href="{{ route('citas.index') }}" class="cancel-button">Cancelar</a>
+        <button type="submit">Actualizar</button>
+        <button><a href="{{ route('medicos.index') }}">Cancelar</a></button>
     </form>
-
 
     <style>
         /* Estilo global */
@@ -88,8 +69,6 @@
         }
 
         /* Estilo de los campos de formulario */
-        form select,
-        form input[type="date"],
         form input[type="text"] {
             width: 100%;
             padding: 10px;
@@ -100,9 +79,7 @@
             box-sizing: border-box;
         }
 
-        form input[type="text"]:focus,
-        form select:focus,
-        form input[type="date"]:focus {
+        form input[type="text"]:focus {
             outline: none;
             border-color: #006d77;
             box-shadow: 0 0 5px rgba(0, 109, 119, 0.7);
@@ -126,22 +103,14 @@
             background-color: #005f73;
         }
 
-        /* Estilo para el enlace de "Cancelar" */
-        .cancel-button {
-            display: block;
-            text-align: center;
-            background-color: #cccccc;
-            color: #333;
-            padding: 10px;
-            border-radius: 8px;
+        /* Enlaces dentro del formulario */
+        form button a {
+            color: white;
             text-decoration: none;
-            font-size: 1rem;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
         }
 
-        .cancel-button:hover {
-            background-color: #b3b3b3;
+        form button a:hover {
+            color: #ffdddd;
         }
 
         /* Estilo para los mensajes de error */

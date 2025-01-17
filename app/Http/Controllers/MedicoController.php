@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Medico; // Asegúrate de importar el modelo Medico
+use App\Models\Medico;
+use App\Http\Requests\StoreMedicoRequest;  // Importa StoreMedicoRequest
+use App\Http\Requests\UpdateMedicoRequest; // Importa UpdateMedicoRequest
 use Illuminate\Http\Request;
 
 class MedicoController extends Controller
@@ -12,7 +14,6 @@ class MedicoController extends Controller
      */
     public function index()
     {
-        // Cambiar de 'Client::get()' a 'Medico::get()' si quieres listar médicos
         $medicos = Medico::all(); // Obtener todos los médicos
         return view('Dashboard.medicos.index', compact('medicos'));
     }
@@ -28,44 +29,43 @@ class MedicoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMedicoRequest $request)
     {
-        // Validar los campos del formulario
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'especialidad' => 'required|string|max:255', // Validación de especialidad
-            'telefono' => 'nullable|numeric',
-            'horario_disponible' => 'nullable|string|max:255',
-        ]);
-    
+        // La validación ya está gestionada en StoreMedicoRequest
+
         // Crear el nuevo médico
-        Medico::create($validated);
-    
+        Medico::create($request->validated());
+
         return to_route('medicos.index')->with('status', 'Médico Registrado');
     }
-    
+
     /**
      * Display the specified resource.
      */
     public function show(Medico $medico)
     {
-        return view('Dashboard.medicos.show', compact('medico'));
+        return view('medicos.show', compact('medico'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Medico $medico)
+    public function edit($id)
     {
+        $medico = Medico::findOrFail($id);
         return view('Dashboard.medicos.edit', compact('medico'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Medico $medico)
+    public function update(UpdateMedicoRequest $request, Medico $medico)
     {
-        $medico->update($request->all());
+        // La validación ya está gestionada en UpdateMedicoRequest
+
+        // Actualizar el médico
+        $medico->update($request->validated());
+
         return redirect()->route('medicos.index')->with('status', 'Médico Actualizado');
     }
 

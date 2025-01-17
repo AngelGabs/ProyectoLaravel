@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Paciente; // Importar el modelo Paciente
+use App\Models\Paciente;
+use App\Http\Requests\StorePacienteRequest;  // Importa StorePacienteRequest
+use App\Http\Requests\UpdatePacienteRequest; // Importa UpdatePacienteRequest
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
@@ -12,8 +14,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        // Obtener todos los pacientes
-        $pacientes = Paciente::all();
+        $pacientes = Paciente::all(); // Obtener todos los pacientes
         return view('Dashboard.pacientes.index', compact('pacientes'));
     }
 
@@ -28,19 +29,12 @@ class PacienteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePacienteRequest $request)
     {
-        // Validar los campos del formulario
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'correo' => 'required|email|unique:pacientes,correo',
-            'telefono' => 'nullable|numeric',
-            'direccion' => 'nullable|string|max:255',
-        ]);
+        // La validación ya está gestionada en StorePacienteRequest
 
         // Crear el nuevo paciente
-        Paciente::create($validated);
+        Paciente::create($request->validated());
 
         return to_route('pacientes.index')->with('status', 'Paciente Registrado');
     }
@@ -64,19 +58,12 @@ class PacienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Paciente $paciente)
+    public function update(UpdatePacienteRequest $request, Paciente $paciente)
     {
-        // Validar los campos actualizados
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'correo' => 'required|email|unique:pacientes,correo,' . $paciente->id,
-            'telefono' => 'nullable|numeric',
-            'direccion' => 'nullable|string|max:255',
-        ]);
+        // La validación ya está gestionada en UpdatePacienteRequest
 
         // Actualizar el paciente
-        $paciente->update($validated);
+        $paciente->update($request->validated());
 
         return redirect()->route('pacientes.index')->with('status', 'Paciente Actualizado');
     }

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('correo')->nullable();
             $table->string('telefono')->nullable();
-            $table->date('fecha_registro');
+            $table->timestamp('fecha_registro')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('direccion')->nullable();
+
             $table->timestamps();
         });
     }

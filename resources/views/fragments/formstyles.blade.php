@@ -10,7 +10,7 @@
         border-radius: 12px;
         margin-block: auto;
         margin-inline: auto;
-        background-color: #447a6e;
+        background-color: #539085;
     }
 
     form label{

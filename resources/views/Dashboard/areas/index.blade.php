@@ -2,46 +2,39 @@
 
 @section('content')
 
-<h1>Listado de Pacientes</h1>
+<h1>Gestión de Áreas</h1>
 
-<!-- Botones de acción -->
+<!-- Botón para crear un área -->
 <div class="action-buttons">
-    <button class="btn btn-primary" onclick="window.location.href='{{ route('pacientes.create') }}'">Registrar Paciente</button>
-    
+    <button class="btn btn-primary" onclick="window.location.href='{{ route('areas.create') }}'">Crear Área</button>
 </div>
 
-<!-- Tabla de pacientes -->
+<!-- Tabla de áreas -->
 <br><br>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
+            <th>Descripción</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($pacientes as $paciente)
+        @foreach ($areas as $area)
             <tr>
-                <td>{{ $paciente->id }}</td>
-                <td>{{ $paciente->nombre }}</td>
-                <td>{{ $paciente->apellido }}</td>
-                <td>{{ $paciente->correo }}</td>
-                <td>{{ $paciente->telefono }}</td>
-                <td>{{ $paciente->direccion }}</td>
+                <td>{{ $area->id }}</td>
+                <td>{{ $area->nombre }}</td>
+                <td>{{ $area->descripcion }}</td>
                 <td>
-                    <!-- Botones de acción -->
                     <button class="btn btn-info">
-                        <a href="{{ route('pacientes.edit', $paciente) }}" class="action-link">Editar</a>
+                        <a href="{{ route('areas.edit', $area->id) }}" class="action-link">Editar</a>
                     </button>
-                    <form action="{{ route('pacientes.destroy', $paciente) }}" method="POST" style="display:inline;">
+                    <!-- Formulario de eliminación con confirmación -->
+                    <form action="{{ route('areas.destroy', $area->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este paciente?')">Eliminar</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta área?')">Eliminar</button>
                     </form>
                 </td>
             </tr>

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
             $table->foreignId('medico_id')->constrained('medicos')->onDelete('cascade');
-            $table->date('fecha_cita');
-            $table->time('hora_cita');
+            $table->date('fecha_cita')->nullable();
+            $table->time('hora_cita')->nullable();
             $table->enum('estado', ['Pendiente', 'Completada', 'Cancelada'])->default('Pendiente');
             $table->timestamps();
         });

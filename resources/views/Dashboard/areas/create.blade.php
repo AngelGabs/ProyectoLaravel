@@ -2,26 +2,30 @@
 
 @section('content')
 
-<h1>Registrar Médico</h1>
+<h1>Crear Área</h1>
 
-<form action="{{ route('medicos.store') }}" method="POST" class="form-container">
+<!-- Mostrar errores si los hay -->
+@if($errors->any())
+    <div class="error-messages">
+        @foreach ($errors->all() as $e)
+            <p>{{ $e }}</p>
+        @endforeach
+    </div>        
+@endif
+
+<!-- Formulario para crear área -->
+<form action="{{ route('areas.store') }}" method="POST" class="form-container">
     @csrf
 
-    <label for="nombre">Nombre del Médico</label>
-    <input type="text" name="nombre" id="nombre" required>
+    <label for="nombre">Nombre del Área</label>
+    <input type="text" name="nombre" value="{{ old('nombre') }}" required>
 
-    <label for="especialidad">Especialidad</label>
-    <input type="text" name="especialidad" id="especialidad">
-
-    <label for="telefono">Teléfono</label>
-    <input type="number" name="telefono" id="telefono">
-
-    <label for="horario_disponible">Horario Disponible</label>
-    <input type="text" name="horario_disponible" id="horario_disponible">
+    <label for="descripcion">Descripción del Área</label>
+    <textarea name="descripcion" rows="4">{{ old('descripcion') }}</textarea>
 
     <div class="form-buttons">
-        <button type="submit" class="btn btn-primary">Registrar</button>
-        <a href="{{ route('medicos.index') }}" class="btn btn-secondary cancel-link">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Registrar Área</button>
+        <a href="{{ route('areas.index') }}" class="btn btn-secondary cancel-link">Cancelar</a>
     </div>
 </form>
 
@@ -46,7 +50,7 @@
         font-weight: bold;
     }
 
-    /* Estilo del formulario */
+    /* Contenedor del formulario */
     .form-container {
         width: 50%;
         margin: 0 auto;
@@ -56,14 +60,16 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .form-container label {
+    /* Estilo de los campos de formulario */
+    form label {
         display: block;
         font-size: 1rem;
         margin: 8px 0;
         color: #005f73;
     }
 
-    .form-container input {
+    form input[type="text"],
+    form textarea {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
@@ -73,12 +79,14 @@
         box-sizing: border-box;
     }
 
-    .form-container input:focus {
+    form input[type="text"]:focus,
+    form textarea:focus {
         outline: none;
         border-color: #006d77;
         box-shadow: 0 0 5px rgba(0, 109, 119, 0.7);
     }
 
+    /* Estilo de los botones */
     .form-buttons {
         display: flex;
         justify-content: space-between;
@@ -88,42 +96,33 @@
     .btn {
         padding: 12px 30px;
         font-size: 1.1em;
-        border-radius: 50px;
+        border-radius: 8px;
         cursor: pointer;
-        border: none;
-        display: inline-block;
-        font-weight: bold;
+        text-decoration: none;
     }
 
     .btn-primary {
         background-color: #5d9baf; /* Azul suave */
         color: white;
-        text-decoration: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #4a8a9b;
     }
 
     .btn-secondary {
-        background-color: #6b8e23; /* Verde suave */
+        background-color: #4caf50;
         color: white;
     }
 
+    .btn-primary:hover,
     .btn-secondary:hover {
-        background-color: #4c7023;
+        opacity: 0.8;
     }
 
+    /* Estilo del enlace de cancelar */
     .cancel-link {
-        text-decoration: none;
         color: white;
+        text-decoration: none;
     }
 
-    .cancel-link:hover {
-        color: #ffdddd;
-    }
-
-    /* Estilo para el mensaje de error (si lo hay) */
+    /* Estilo para los mensajes de error */
     .error-messages {
         background-color: #ffe6e6;
         padding: 10px;
@@ -146,4 +145,19 @@
     }
 </style>
 
+<!-- JavaScript para confirmación de eliminación -->
+<script>
+    // Agregar confirmación antes de eliminar
+    function confirmDeletion(event) {
+        if (!confirm('¿Estás seguro de eliminar esta área?')) {
+            event.preventDefault();  // Evitar que se elimine si el usuario cancela
+        }
+    }
+
+    // Asignar la función de confirmación a los formularios de eliminación
+    const deleteForms = document.querySelectorAll('.delete-form');
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', confirmDeletion);
+    });
+</script>
 

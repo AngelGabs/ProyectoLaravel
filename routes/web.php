@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\TestController;
@@ -49,13 +49,16 @@ Route::delete('/destroyProducts/{product}',[App\Http\Controllers\ProductControll
 
 //Ruta Tipo Recursos para métodos REST, que permite crear las rutas para un CRUD de las 7 funciones de un controllercle
 
-Route::get('/citas/{citas}/delete',
-[App\Http\Controllers\ProductController::class, 'delete'])-> name('citas.delete');
+
+
 
 Route::resource('medicos', App\Http\Controllers\MedicoController::class);
 Route::resource('pacientes', PacienteController::class);
 Route::resource('citas', CitaController::class);
 Route::resource('usuarios',  UsuarioController::class);
+Route::resource('areas', AreaController::class);
+Route::get('/citas/{id}/delete', [CitaController::class, 'showDeleteForm'])
+    ->name('citas.showDeleteForm');
 
 // Registering routes in web.php
 

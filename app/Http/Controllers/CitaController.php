@@ -14,7 +14,7 @@ class CitaController extends Controller
      */
     public function index()
     {
-        $citas = Cita::with('medico', 'paciente')->paginate(10); // Asegúrate de usar paginate()
+        $citas = Cita::with('paciente', 'medico')->paginate(10); // Asegúrate de usar paginate()
         return view('Dashboard.citas.index', compact('citas'));
     }
     
@@ -33,21 +33,19 @@ class CitaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'paciente_id' => 'required|exists:pacientes,id',
-            'medico_id' => 'required|exists:medicos,id',
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'motivo' => 'nullable|string|max:500',
-        ]);
+{
+    $request->validate([
+        'paciente_id' => 'required|exists:pacientes,id',
+        'medico_id' => 'required|exists:medicos,id',
+        'fecha_cita' => 'nullable|date_format:Y-m-d',
+        'hora_cita' => 'nullable|date_format:H:i:s',
+        'estado' => 'required|in:Pendiente,Completada,Cancelada',
+    ]);
 
-        Cita::create($request->all());
+    Cita::create($request->all());
 
-        return redirect()->route('Dashboard/citas.index')
-                         ->with('status', 'Cita creada correctamente.');
-    }
-
+    return redirect()->route('citas.index')->with('success', 'Cita registrada exitosamente.');
+}
     /**
      * Display the specified resource.
      */
@@ -88,12 +86,20 @@ class CitaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cita $cita)
+    public function destroy($id)
     {
+        $cita = Cita::findOrFail($id);
         $cita->delete();
-
-        return redirect()->route('Dashboard/citas.index')
-                         ->with('status', 'Cita eliminada correctamente.');
+    
+        return redirect()->route('citas.index')->with('success', 'Cita eliminada exitosamente.');
     }
+
+    public function showDeleteForm($id)
+    {
+        $cita = Cita::findOrFail($id); // Encuentra la cita por su ID
+        return view('Dashboard.citas.delete', compact('cita')); // Muestra la vista
+    }
+    
+    
 }
 
