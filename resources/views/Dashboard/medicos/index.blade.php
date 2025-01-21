@@ -15,6 +15,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID<th>
             <th>Nombre del Médico</th>
             <th>Especialidad</th>
             <th>Teléfono</th>
@@ -25,6 +26,7 @@
     <tbody>
         @foreach ($medicos as $c)
             <tr>
+                <td>{{ $c->id}}<td>
                 <td>{{ $c->nombre }}</td>
                 <td>{{ $c->especialidad }}</td>
                 <td>{{ $c->telefono }}</td>

@@ -33,12 +33,12 @@
             <tr>
                 <td>{{ $p->paciente->nombre }}</td>
                 <td>{{ $p->medico->nombre }}</td>
-                <td>{{ $p->fecha_cita  }}</td>
+                <td>{{ $p->fecha_cita ?? 'sin fecha' }}</td>
                 <td>{{ $p->hora_cita ?? 'sin hora' }}</td>
                 <td>
                     <!-- Botones de acción -->
                     <button class="btn btn-info">
-                        <a href="{{ route('citas.show', $p) }}">Mostrar</a>
+                        <a href="{{ route('citas.edit', $p) }}">Mostrar</a>
                     </button>
 
                     <button class="btn btn-danger">

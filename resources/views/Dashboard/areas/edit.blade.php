@@ -19,7 +19,7 @@
     @method('PUT')
 
     <label for="nombre">Nombre del Área</label>
-    <input type="text" name="nombre" value="{{ $area->nombre }}" required>
+    <input type="text" name="nombre" value="{{ $area->nombre }}">
 
     <label for="descripcion">Descripción</label>
     <textarea name="descripcion" rows="4">{{ $area->descripcion }}</textarea>

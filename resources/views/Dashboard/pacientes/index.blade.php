@@ -3,6 +3,7 @@
 @section('content')
 
 <h1>Listado de Pacientes</h1>
+<!--AQUI-->
 
 <!-- Botones de acción -->
 <div class="action-buttons">

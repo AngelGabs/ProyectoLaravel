@@ -32,10 +32,11 @@
              <a> </a>
              <a> </a>
             <a href="{{route('index')}}">Inicio</a>
-            <a href="{{route('citas.index')}}">Citas</a>
+        
             <a href="{{route('medicos.index')}}">Medicos</a>
             <a href="{{route('pacientes.index')}}">Pacientes</a>
             <a href="{{route('areas.index') }}">Areas</a>
+            <a href="{{route('citas.index')}}">Citas</a>
         </p>
     </nav>
 </header>
@@ -63,7 +64,6 @@
        
        
         {{-- Imagen desde URL externa --}}
-        <img src="https://www.gaceta.unam.mx/wp-content/uploads/2021/09/210906-Com3-f2-Enfermeros.jpg"
-         alt="Imagen Externa" style="width: 300px; height: 40;">
+       
     </div>
 </body>

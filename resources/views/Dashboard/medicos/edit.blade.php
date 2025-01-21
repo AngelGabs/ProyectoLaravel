@@ -3,6 +3,7 @@
 @section('content')
     <h1>Editar Médico</h1>
 
+    <!-- Mostrar errores generales -->
     @if ($errors->any())
         <div class="error-messages">
             @foreach ($errors->all() as $error)
@@ -15,28 +16,41 @@
         @csrf
         @method('PUT')
 
+        <!-- Campo Nombre -->
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{ $medico->nombre }}" required>
-        <br>
+        <input type="text" id="nombre" name="nombre" value="{{ old('nombre', $medico->nombre) }}">
+        @error('nombre')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
+        <!-- Campo Especialidad -->
         <label for="especialidad">Especialidad:</label>
-        <input type="text" id="especialidad" name="especialidad" value="{{ $medico->especialidad }}" required>
-        <br>
+        <input type="text" id="especialidad" name="especialidad" value="{{ old('especialidad', $medico->especialidad) }}">
+        @error('especialidad')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
+        <!-- Campo Teléfono -->
         <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" value="{{ $medico->telefono }}">
-        <br>
+        <input type="text" id="telefono" name="telefono" value="{{ old('telefono', $medico->telefono) }}">
+        @error('telefono')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
+        <!-- Campo Horario Disponible -->
         <label for="horario_disponible">Horario Disponible:</label>
-        <input type="text" id="horario_disponible" name="horario_disponible" value="{{ $medico->horario_disponible }}">
-        <br>
+        <input type="text" id="horario_disponible" name="horario_disponible" value="{{ old('horario_disponible', $medico->horario_disponible) }}">
+        @error('horario_disponible')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
+        <!-- Botones -->
         <button type="submit">Actualizar</button>
-        <button><a href="{{ route('medicos.index') }}">Cancelar</a></button>
+        <a href="{{ route('medicos.index') }}" class="btn btn-secondary cancel-link">Cancelar</a>
     </form>
 
     <style>
-        /* Estilo global */
+        /* Mismos estilos de antes */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f6f9;
@@ -51,7 +65,6 @@
             margin-bottom: 20px;
         }
 
-        /* Contenedor principal */
         form {
             width: 50%;
             margin: 0 auto;
@@ -68,25 +81,27 @@
             color: #005f73;
         }
 
-        /* Estilo de los campos de formulario */
-        form input[type="text"] {
+        form input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            box-sizing: border-box;
         }
 
-        form input[type="text"]:focus {
-            outline: none;
-            border-color: #006d77;
-            box-shadow: 0 0 5px rgba(0, 109, 119, 0.7);
+        .alert-danger {
+            background-color: #ffe6e6;
+            padding: 10px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #f44336;
+            color: #721c24;
+            font-size: 1rem;
         }
 
-        /* Estilo para los botones */
-        form button {
+        button {
             background-color: #006d77;
             color: white;
             border: none;
@@ -95,44 +110,24 @@
             font-size: 1rem;
             cursor: pointer;
             margin-top: 15px;
-            width: 100%;
             transition: background-color 0.3s ease;
         }
 
-        form button:hover {
+        button:hover {
             background-color: #005f73;
         }
 
-        /* Enlaces dentro del formulario */
-        form button a {
-            color: white;
+        .cancel-link {
             text-decoration: none;
+            color: white;
+            background-color: #b8336a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
         }
 
-        form button a:hover {
-            color: #ffdddd;
-        }
-
-        /* Estilo para los mensajes de error */
-        .error-messages {
-            background-color: #ffe6e6;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #f44336;
-        }
-
-        .error-messages p {
-            color: #f44336;
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        /* Ajustes para pantallas pequeñas */
-        @media (max-width: 768px) {
-            form {
-                width: 90%;
-            }
+        .cancel-link:hover {
+            background-color: #a0275d;
         }
     </style>
 @endsection

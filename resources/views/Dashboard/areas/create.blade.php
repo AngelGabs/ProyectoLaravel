@@ -18,7 +18,7 @@
     @csrf
 
     <label for="nombre">Nombre del Área</label>
-    <input type="text" name="nombre" value="{{ old('nombre') }}" required>
+    <input type="text" name="nombre" value="{{ old('nombre') }}">
 
     <label for="descripcion">Descripción del Área</label>
     <textarea name="descripcion" rows="4">{{ old('descripcion') }}</textarea>

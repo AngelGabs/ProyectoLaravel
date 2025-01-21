@@ -1,5 +1,5 @@
 <?php
-
+//Aqui
 namespace App\Http\Controllers;
 
 use App\Models\Paciente;
@@ -29,15 +29,24 @@ class PacienteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePacienteRequest $request)
+    public function store(Request $request)
     {
-        // La validación ya está gestionada en StorePacienteRequest
-
-        // Crear el nuevo paciente
-        Paciente::create($request->validated());
-
-        return to_route('pacientes.index')->with('status', 'Paciente Registrado');
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'especialidad' => 'nullable|string|max:255',
+            'telefono' => 'nullable|numeric',
+            'horario_disponible' => 'nullable|string|max:255',
+        ], [
+            'nombre.required' => 'El nombre del médico es obligatorio.',
+            'especialidad.string' => 'La especialidad debe ser un texto.',
+            'telefono.numeric' => 'El teléfono debe ser un número válido.',
+            'horario_disponible.string' => 'El horario disponible debe ser un texto válido.',
+        ]);
+    
+        dd($request->all());
     }
+    
+    
 
     /**
      * Display the specified resource.

@@ -12,7 +12,6 @@
         <label>Paciente:</label>
         <p>{{ $cita->paciente->nombre }}</p>
     </div>
-        
 
     <div class="detail-item">
         <label>Médico:</label>

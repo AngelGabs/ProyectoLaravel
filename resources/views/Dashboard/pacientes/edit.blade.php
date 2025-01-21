@@ -4,38 +4,50 @@
 
 <h1>Editar Paciente</h1>
 
-<!-- Mostrar errores si los hay -->
-@if ($errors->any())
-    <div class="error-messages">
-        @foreach ($errors->all() as $error)
-            <p>{{ $error }}</p>
-        @endforeach
-    </div>
-@endif
-
 <!-- Formulario para editar paciente -->
 <form action="{{ route('pacientes.update', $paciente->id) }}" method="POST" class="form-container">
     @csrf
     @method('PUT')
 
+    <!-- Campo Nombre -->
     <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" value="{{ $paciente->nombre }}" required>
+    <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" value="{{ old('nombre', $paciente->nombre) }}">
+    @error('nombre')
+        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+    @enderror
 
+    <!-- Campo Apellido -->
     <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" value="{{ $paciente->apellido }}" required>
+    <input type="text" name="apellido" id="apellido" placeholder="Ingrese el apellido" value="{{ old('apellido', $paciente->apellido) }}">
+    @error('apellido')
+        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+    @enderror
 
+    <!-- Campo Correo -->
     <label for="correo">Correo:</label>
-    <input type="email" id="correo" name="correo" value="{{ $paciente->correo }}">
+    <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" value="{{ old('correo', $paciente->correo) }}">
+    @error('correo')
+        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+    @enderror
 
+    <!-- Campo Teléfono -->
     <label for="telefono">Teléfono:</label>
-    <input type="text" id="telefono" name="telefono" value="{{ $paciente->telefono }}">
+    <input type="text" name="telefono" id="telefono" placeholder="Ingrese el teléfono" value="{{ old('telefono', $paciente->telefono) }}" pattern="\d*" maxlength="10">
+    @error('telefono')
+        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+    @enderror
 
+    <!-- Campo Dirección -->
     <label for="direccion">Dirección:</label>
-    <input type="text" id="direccion" name="direccion" value="{{ $paciente->direccion }}">
+    <input type="text" name="direccion" id="direccion" placeholder="Ingrese la dirección" value="{{ old('direccion', $paciente->direccion) }}">
+    @error('direccion')
+        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+    @enderror
 
+    <!-- Botones -->
     <div class="form-buttons">
         <button type="submit" class="btn btn-primary">Actualizar</button>
-        <button class="btn btn-secondary"><a href="{{ route('pacientes.index') }}" class="cancel-link">Cancelar</a></button>
+        <a href="{{ route('pacientes.index') }}" class="btn btn-secondary cancel-link">Cancelar</a>
     </div>
 </form>
 
@@ -43,7 +55,6 @@
 
 <!-- CSS Adicional -->
 <style>
-    /* Estilo general */
     body {
         font-family: 'Arial', sans-serif;
         background-color: #f4f6f9;
@@ -60,7 +71,6 @@
         font-weight: bold;
     }
 
-    /* Contenedor del formulario */
     .form-container {
         width: 50%;
         margin: 0 auto;
@@ -70,7 +80,6 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Estilo de los campos de formulario */
     form label {
         display: block;
         font-size: 1rem;
@@ -78,25 +87,21 @@
         color: #005f73;
     }
 
-    form input[type="text"],
-    form input[type="email"] {
+    form input {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
         border: 1px solid #ddd;
         border-radius: 8px;
         font-size: 1rem;
-        box-sizing: border-box;
     }
 
-    form input[type="text"]:focus,
-    form input[type="email"]:focus {
+    form input:focus {
         outline: none;
         border-color: #006d77;
         box-shadow: 0 0 5px rgba(0, 109, 119, 0.7);
     }
 
-    /* Estilo de los botones */
     .form-buttons {
         display: flex;
         justify-content: space-between;
@@ -112,7 +117,7 @@
     }
 
     .btn-primary {
-        background-color: #5d9baf; /* Azul suave */
+        background-color: #5d9baf;
         color: white;
     }
 
@@ -126,32 +131,24 @@
         opacity: 0.8;
     }
 
-    /* Estilo del enlace de cancelar */
     .cancel-link {
         color: white;
         text-decoration: none;
     }
 
-    /* Estilo para los mensajes de error */
-    .error-messages {
-        background-color: #ffe6e6;
+    .alert-danger {
         padding: 10px;
-        margin-bottom: 20px;
+        margin-top: 5px;
+        background-color: #f8d7da;
         border-radius: 5px;
         border: 1px solid #f44336;
+        color: #721c24;
+        font-size: 0.9rem;
     }
 
-    .error-messages p {
-        color: #f44336;
-        margin: 0;
-        font-size: 1rem;
-    }
-
-    /* Ajustes para pantallas pequeñas */
     @media (max-width: 768px) {
         .form-container {
             width: 90%;
         }
     }
 </style>
-

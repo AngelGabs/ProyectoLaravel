@@ -8,16 +8,28 @@
     @csrf
 
     <label for="nombre">Nombre del Médico</label>
-    <input type="text" name="nombre" id="nombre" required>
+    <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}">
+    @error('nombre')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <label for="especialidad">Especialidad</label>
-    <input type="text" name="especialidad" id="especialidad">
+    <input type="text" name="especialidad" id="especialidad" value="{{ old('especialidad') }}">
+    @error('especialidad')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <label for="telefono">Teléfono</label>
-    <input type="number" name="telefono" id="telefono">
+    <input type="number" name="telefono" id="telefono" value="{{ old('telefono') }}">
+    @error('telefono')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <label for="horario_disponible">Horario Disponible</label>
-    <input type="text" name="horario_disponible" id="horario_disponible">
+    <input type="text" name="horario_disponible" id="horario_disponible" value="{{ old('horario_disponible') }}">
+    @error('horario_disponible')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <div class="form-buttons">
         <button type="submit" class="btn btn-primary">Registrar</button>
@@ -124,17 +136,13 @@
     }
 
     /* Estilo para el mensaje de error (si lo hay) */
-    .error-messages {
+    .alert-danger {
         background-color: #ffe6e6;
         padding: 10px;
         margin-bottom: 20px;
         border-radius: 5px;
         border: 1px solid #f44336;
-    }
-
-    .error-messages p {
-        color: #f44336;
-        margin: 0;
+        color: #721c24;
         font-size: 1rem;
     }
 
@@ -145,5 +153,3 @@
         }
     }
 </style>
-
-
